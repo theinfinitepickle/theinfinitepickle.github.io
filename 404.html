@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script type="text/javascript">
+    // Get the current path
+    var path = window.location.pathname;
+
+    // Define the base URL of your organization
+    var orgBaseUrl = "https://theinfinitepickle.github.io/";
+
+    // Check if the path corresponds to a repository name
+    var repos = ["mondrian"]; // Add your repository names here
+
+    // Extract the first part of the path
+    var repoName = path.split('/')[1];
+
+    // Redirect if the path matches a repository name
+    if (repos.includes(repoName)) {
+      window.location.replace(orgBaseUrl + repoName);
+    } else {
+      document.write("Page not found.");
+    }
+  </script>
+</head>
+<body>
+  <h1>Redirecting...</h1>
+  <p>If you are not redirected automatically, <a id="redirectLink" href="#">click here</a>.</p>
+  <script type="text/javascript">
+    document.getElementById("redirectLink").href = orgBaseUrl + repoName;
+  </script>
+</body>
+</html>
