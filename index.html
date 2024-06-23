@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Infinite Pickle</title>
+    <meta name="description" content="A collection of mathematical puzzles free of charge and micropayments, advertisements, product placements, addictive gamification, and other nonsense.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #d4fc79 0%, #96e6a1 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            user-select: none;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .banner {
+            background-color: #fff9c4;
+            padding: 10px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .banner span {
+            font-size: 1em;
+            color: #333;
+        }
+        .banner .close {
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 0 10px;
+            position: absolute;
+            right: 10px;
+        }
+        .app-icon {
+            width: 256px;
+            height: 256px;
+            border-radius: 50%; /* Makes the corners round */
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+        .description {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 5px;
+            color: #2e7d32;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .btn, .subscribe button {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            transition: background-color 0.3s ease;
+            width: 150%; /* 50% wider */
+            max-width: 450px; /* Adjusted max-width */
+        }
+        .btn:hover, .subscribe button:hover {
+            background-color: #66bb6a;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        .lightbox input {
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+        .lightbox input::placeholder {
+            color: #ccc;
+            letter-spacing: normal;
+        }
+        .lightbox a {
+            display: block;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #4caf50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .lightbox a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            font-size: 0.8em;
+            color: #666;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+        }
+        .footer-link::after {
+            content: ' ↗';
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .description {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+            .btn, .subscribe button {
+                font-size: 1.2em;
+                padding: 10px 20px;
+                width: 100%; /* Full width */
+                max-width: none; /* Remove max-width */
+            }
+            .lightbox-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner" id="install-banner">
+        <span>Install this website on your home screen</span>
+        <button class="close" aria-label="Close banner" onclick="document.getElementById('install-banner').style.display='none'">&times;</button>
+    </div>
+    <div class="content">
+        <img src="./icon-128x128.png" alt="App Icon" class="app-icon">
+        <h1>The Infinite Pickle</h1>
+        <p class="description">
+            A collection of mathematical puzzles free of charge and micropayments, advertisements, product placements, addictive gamification, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" class="footer-link" rel="noopener">Kickstarter</a>.
+        </p>
+        <div class="buttons">
+            <button class="btn" onclick="alert('Solo clicked!')">Solo</button>
+            <button class="btn" onclick="document.getElementById('lightbox').style.display='flex'">Join room</button>
+        </div>
+        <div style="margin-top: 20px;">
+            <div class="subscribe">
+                <input type="email" placeholder="Enter your email" style="padding: 10px; font-size: 1em; width: 80%; max-width: 300px; margin: 10px 0;" aria-label="Email for subscription">
+                <button class="btn">Subscribe for news and updates</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <a href="https://mathpickle.com/" target="_blank" class="footer-link" rel="noopener">Math Pickle</a> and 
+        <a href="https://didactic.ai/" target="_blank" class="footer-link" rel="noopener">Didactic AI</a> © 2024
+    </footer>
+
+    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <h2>Enter 6-digit code</h2>
+            <input type="text" maxlength="6" placeholder="0 0 0 0 0 0" oninput="checkCodeLength(this)" aria-label="6-digit code">
+            <a href="#">Create room</a>
+        </div>
+    </div>
+
+    <div id="install-lightbox" class="lightbox" onclick="this.style.display='none'">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <h2>How to Install</h2>
+            <p id="install-instructions"></p>
+            <p>Show instructions for: 
+                <a href="#" onclick="showInstallInstructions('android')">Android</a>, 
+                <a href="#" onclick="showInstallInstructions('ios')">iOS</a>, 
+                <a href="#" onclick="showInstallInstructions('mac')">Mac</a>, 
+                <a href="#" onclick="showInstallInstructions('windows')">Windows</a>, 
+                <a href="#" onclick="showInstallInstructions('other')">Other</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(error) {
+                    console.log('ServiceWorker registration failed: ', error);
+                });
+            });
+        }
+
+        function checkCodeLength(input) {
+            if (input.value.length === 6) {
+                alert('You entered ' + input.value);
+            }
+        }
+
+        function showInstallInstructions(os) {
+            const instructions = document.getElementById('install-instructions');
+            switch (os) {
+                case 'android':
+                    instructions.innerHTML = "To install this app on your Android device, tap the menu button and select 'Add to Home screen'.";
+                    break;
+                case 'ios':
+                    instructions.innerHTML = "To install this app on your iOS device, tap the share button in Safari and select 'Add to Home Screen'.";
+                    break;
+                case 'mac':
+                    instructions.innerHTML = "To install this app on your Mac, open Safari, click the share button, and select 'Add to Home Screen'.";
+                    break;
+                case 'windows':
+                    instructions.innerHTML = "To install this app on your Windows device, open the browser menu and select 'Install'.";
+                    break;
+                default:
+                    instructions.innerHTML = "To install this app, open the browser menu and select 'Install' or 'Add to Home Screen'.";
+                    break;
+            }
+
+            document.getElementById('install-lightbox').style.display = 'flex';
+        }
+
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            document.getElementById('install-banner').style.display = 'none';
+        } else {
+            document.getElementById('install-banner').style.display = 'flex';
+        }
+
+        document.getElementById('install-banner').addEventListener('click', showInstallInstructions);
+    </script>
+</body>
+</html>
