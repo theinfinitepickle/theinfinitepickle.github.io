@@ -56,8 +56,14 @@
         h1 {
             font-size: 3em;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #2e7d32;
+        }
+        .about-link {
+            font-size: 0.8em;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 20px;
         }
         .description {
             font-size: 1.2em;
@@ -189,18 +195,10 @@
     <div class="content">
         <img src="icon-256x256.webp" alt="App Icon" class="app-icon">
         <h1>The Infinite Pickle</h1>
-        <p class="description">
-            A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" class="footer-link" rel="noopener">Kickstarter</a>.
-        </p>
+        <a href="#" class="about-link" onclick="document.getElementById('about-lightbox').style.display='flex'">About</a>
         <div class="buttons">
             <button class="btn" onclick="showSoloLightbox()">Solo</button>
             <button class="btn" onclick="document.getElementById('lightbox').style.display='flex'">Join room</button>
-        </div>
-        <div style="margin-top: 20px;">
-            <div class="subscribe">
-                <input type="email" placeholder="Enter your email" style="padding: 10px; font-size: 1em; width: 80%; max-width: 300px; margin: 10px 0;" aria-label="Email for subscription">
-                <button class="btn">Subscribe for news and updates</button>
-            </div>
         </div>
     </div>
     <footer>
@@ -236,6 +234,18 @@
             <h2>Puzzles</h2>
             <button class="btn" onclick="location.href='/mondrian'">Mondrian Art</button>
             <button class="btn" disabled>Lazy Architect</button>
+        </div>
+    </div>
+
+    <!-- About Lightbox -->
+    <div id="about-lightbox" class="lightbox" onclick="this.style.display='none'">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <h2>About The Infinite Pickle</h2>
+            <p>A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" class="footer-link" rel="noopener">Kickstarter</a>.</p>
+            <div class="subscribe">
+                <input type="email" placeholder="Enter your email" style="padding: 10px; font-size: 1em; width: 100%; margin: 10px 0;" aria-label="Email for subscription">
+                <button class="btn">Subscribe for news and updates</button>
+            </div>
         </div>
     </div>
 
