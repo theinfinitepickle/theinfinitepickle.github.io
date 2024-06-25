@@ -2,253 +2,108 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>The Infinite Pickle</title>
     <meta name="description" content="A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense.">
     <meta name="theme-color" content="#2e7d32">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(to right, #d4fc79 0%, #96e6a1 100%);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            user-select: none;
-        }
-        .content {
-            display: flex;
-            padding-top: 50px;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-        }
-        .banner {
-            background-color: #fff9c4;
-            padding: 10px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .banner span {
-            font-size: 1em;
-            color: #333;
-        }
-        .app-icon {
-            width: 128px;
-            height: 128px;
-            border-radius: 15%;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2e7d32;
-        }
-        .about-link {
-            font-size: 0.8em;
-            color: #666;
-            text-decoration: none;
-            margin-bottom: 20px;
-        }
-        .description {
-            font-size: 1.2em;
-            font-weight: bold;
-            padding: 15px 30px;
-            margin: 10px;
-            background-color: white;
-            border-radius: 5px;
-            color: #2e7d32;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .btn {
-            font-size: 1.5em;
-            font-weight: bold;
-            padding: 15px 30px;
-            margin: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #4caf50;
-            color: white;
-            transition: background-color 0.3s ease;
-            width: 150%;
-            max-width: 450px;
-        }
-        .btn:hover {
-            background-color: #66bb6a;
-        }
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-        .lightbox-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            width: 80%;
-            max-width: 400px;
-            box-sizing: border-box;
-        }
-        .lightbox .lightbox-btn {
-            width: 100%;
-            max-width: none;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .lightbox input {
-            font-size: 1.2em;
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            letter-spacing: 5px;
-        }
-        .lightbox input::placeholder {
-            color: #ccc;
-            letter-spacing: normal;
-        }
-        .lightbox a {
-            display: block;
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #4caf50;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .lightbox a:hover {
-            text-decoration: underline;
-        }
-        .lightbox button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        footer {
-            font-size: 0.8em;
-            color: #666;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-        .footer-link {
-            color: #666;
-            text-decoration: none;
-        }
-        .footer-link::after {
-            content: ' ↗';
-            font-size: 0.8em;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
-            .description {
-                font-size: 1em;
-                padding: 10px 20px;
-            }
-            .btn {
-                font-size: 1.2em;
-                padding: 10px 20px;
-                width: 100%;
-                max-width: none;
-            }
-            .lightbox-content {
-                padding: 20px;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pickle-green': '#2e7d32',
+                        'pickle-light': '#66bb6a',
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="banner" id="install-banner">
-        <span>Install this website on your home screen</span>
+<body class="font-sans text-center bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] text-gray-800 flex flex-col min-h-screen overflow-x-hidden select-none">
+    <div id="install-banner" class="bg-yellow-100 py-2 px-4 fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-50">
+        <span class="text-sm">Install this website on your home screen</span>
     </div>
-    <div class="content">
-        <img src="icon-256x256.webp" alt="App Icon" class="app-icon">
-        <h1>The Infinite Pickle</h1>
-        <a href="#" class="about-link" onclick="document.getElementById('about-lightbox').style.display='flex'">About</a>
-        <div class="buttons">
-            <button class="btn" onclick="showSoloLightbox()">Solo</button>
-            <button class="btn" onclick="document.getElementById('lightbox').style.display='flex'">Join room</button>
+
+    <div class="flex-grow flex flex-col items-center justify-center pt-16 px-4">
+        <img src="icon-256x256.webp" alt="App Icon" class="w-32 h-32 rounded-2xl mb-6">
+        <h1 class="text-4xl font-bold mb-2 text-pickle-green">The Infinite Pickle</h1>
+        <a href="#" class="text-sm text-gray-600 mb-6 hover:underline" onclick="toggleLightbox('about-lightbox', true)">About</a>
+        <div class="flex flex-col items-center w-full max-w-sm">
+            <button onclick="toggleLightbox('solo-lightbox', true)" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded mb-4 hover:bg-pickle-light transition-colors">Solo</button>
+            <button onclick="toggleLightbox('join-room-lightbox', true)" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded hover:bg-pickle-light transition-colors">Join room</button>
         </div>
     </div>
-    <footer>
-        <a href="https://mathpickle.com/" target="_blank" class="footer-link" rel="noopener">Math Pickle</a> and 
-        <a href="https://didactic.ai/" target="_blank" class="footer-link" rel="noopener">Didactic AI</a> © 2024
+
+    <footer class="w-full text-center py-4 text-sm text-gray-600">
+        <a href="https://mathpickle.com/" target="_blank" rel="noopener" class="hover:underline">Math Pickle</a> and 
+        <a href="https://didactic.ai/" target="_blank" rel="noopener" class="hover:underline">Didactic AI</a> © 2024
     </footer>
 
-    <div id="lightbox" class="lightbox" onclick="this.style.display='none'">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <h2>Enter 6-digit code</h2>
-            <input type="text" maxlength="6" placeholder="0 0 0 0 0 0" oninput="checkCodeLength(this)" aria-label="6-digit code">
-            <a href="#">Create room</a>
+    <!-- Join Room Lightbox -->
+    <div id="join-room-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('join-room-lightbox', false)">
+        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
+            <button onclick="toggleLightbox('join-room-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold mb-4">Enter 6-digit code</h2>
+            <input type="text" maxlength="6" placeholder="0 0 0 0 0 0" oninput="checkCodeLength(this)" aria-label="6-digit code" class="w-full text-center text-2xl p-2 mb-4 border rounded">
+            <a href="#" class="text-pickle-green text-lg hover:underline">Create room</a>
         </div>
     </div>
 
-    <div id="install-lightbox" class="lightbox" onclick="this.style.display='none'">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <h2>How to Install</h2>
-            <p id="install-instructions"></p>
-            <p>Show instructions for: 
-                <a href="#" onclick="showInstallInstructions('android')">Android</a>, 
-                <a href="#" onclick="showInstallInstructions('ios')">iOS</a>, 
-                <a href="#" onclick="showInstallInstructions('mac')">Mac</a>, 
-                <a href="#" onclick="showInstallInstructions('windows')">Windows</a>, 
-                <a href="#" onclick="showInstallInstructions('other')">Other</a>
-            </p>
+    <!-- Install Instructions Lightbox -->
+    <div id="install-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('install-lightbox', false)">
+        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
+            <button onclick="toggleLightbox('install-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold mb-4">How to Install</h2>
+            <p id="install-instructions" class="mb-4"></p>
+            <p>Show instructions for:</p>
+            <div class="flex flex-wrap justify-center gap-2 mt-2">
+                <button onclick="showInstallInstructions('android')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Android</button>
+                <button onclick="showInstallInstructions('ios')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">iOS</button>
+                <button onclick="showInstallInstructions('mac')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Mac</button>
+                <button onclick="showInstallInstructions('windows')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Windows</button>
+                <button onclick="showInstallInstructions('other')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Other</button>
+            </div>
         </div>
     </div>
 
     <!-- Solo Lightbox -->
-    <div id="solo-lightbox" class="lightbox" onclick="this.style.display='none'">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <h2>Puzzles</h2>
-            <button class="btn lightbox-btn" onclick="location.href='/mondrian'">Mondrian Art</button>
-            <button class="btn lightbox-btn" disabled>Lazy Architect</button>
+    <div id="solo-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('solo-lightbox', false)">
+        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
+            <button onclick="toggleLightbox('solo-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold mb-4">Puzzles</h2>
+            <button onclick="location.href='/mondrian'" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded mb-4 hover:bg-pickle-light transition-colors">Mondrian Art</button>
+            <button disabled class="w-full bg-gray-300 text-gray-500 font-bold py-3 px-6 rounded cursor-not-allowed">Lazy Architect</button>
         </div>
     </div>
 
     <!-- About Lightbox -->
-    <div id="about-lightbox" class="lightbox" onclick="this.style.display='none'">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <h2>About The Infinite Pickle</h2>
-            <p>A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" class="footer-link" rel="noopener">Kickstarter</a>.</p>
+    <div id="about-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('about-lightbox', false)">
+        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
+            <button onclick="toggleLightbox('about-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold mb-4">About The Infinite Pickle</h2>
+            <p class="mb-4">A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" rel="noopener" class="text-pickle-green hover:underline">Kickstarter</a>.</p>
             <div class="subscribe">
-                <input type="email" placeholder="Enter your email" style="padding: 10px; font-size: 1em; width: 100%; margin: 10px 0;" aria-label="Email for subscription">
-                <button class="btn lightbox-btn">Subscribe for news and updates</button>
+                <input type="email" placeholder="Enter your email" class="w-full p-2 mb-4 border rounded" aria-label="Email for subscription">
+                <button class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded hover:bg-pickle-light transition-colors">Subscribe for news and updates</button>
             </div>
         </div>
     </div>
@@ -290,20 +145,25 @@
                     break;
             }
 
-            document.getElementById('install-lightbox').style.display = 'flex';
+            toggleLightbox('install-lightbox', true);
         }
 
-        function showSoloLightbox() {
-            document.getElementById('solo-lightbox').style.display = 'flex';
+        function toggleLightbox(id, show) {
+            const lightbox = document.getElementById(id);
+            if (show) {
+                lightbox.classList.remove('hidden');
+            } else {
+                lightbox.classList.add('hidden');
+            }
         }
 
         if (window.matchMedia('(display-mode: standalone)').matches) {
-            document.getElementById('install-banner').style.display = 'none';
+            document.getElementById('install-banner').classList.add('hidden');
         } else {
-            document.getElementById('install-banner').style.display = 'flex';
+            document.getElementById('install-banner').classList.remove('hidden');
         }
 
-        document.getElementById('install-banner').addEventListener('click', showInstallInstructions);
+        document.getElementById('install-banner').addEventListener('click', () => toggleLightbox('install-lightbox', true));
     </script>
 </body>
 </html>
