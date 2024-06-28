@@ -1,0 +1,15 @@
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "now"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule .* - [E=Cache-Control:no-cache]
+</IfModule>
