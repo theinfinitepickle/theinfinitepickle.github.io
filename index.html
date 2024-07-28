@@ -23,17 +23,13 @@
     </script>
 </head>
 <body class="font-sans text-center bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] text-gray-800 flex flex-col min-h-screen overflow-x-hidden select-none">
-    <div id="install-banner" class="bg-yellow-100 py-2 px-4 fixed top-0 left-0 w-full flex justify-center items-center shadow-md z-50">
-        <span class="text-sm">Install this website on your home screen</span>
-    </div>
-
     <div class="flex-grow flex flex-col items-center justify-center pt-16 px-4">
         <img src="icon-256x256.webp" alt="App Icon" class="w-32 h-32 rounded-2xl mb-6">
         <h1 class="text-4xl font-bold mb-2 text-pickle-green">The Infinite Pickle</h1>
         <a href="#" class="text-sm text-gray-600 mb-6 hover:underline" onclick="toggleLightbox('about-lightbox', true)">About</a>
         <div class="flex flex-col items-center w-full max-w-sm">
             <button onclick="toggleLightbox('solo-lightbox', true)" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded mb-4 hover:bg-pickle-light transition-colors">Solo</button>
-            <button onclick="toggleLightbox('join-room-lightbox', true)" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded hover:bg-pickle-light transition-colors">Join room</button>
+            <button disabled class="w-full bg-gray-300 text-gray-500 font-bold py-3 px-6 rounded cursor-not-allowed">Join room</button>
         </div>
     </div>
 
@@ -56,38 +52,41 @@
         </div>
     </div>
 
-    <!-- Install Instructions Lightbox -->
-    <div id="install-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('install-lightbox', false)">
-        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
-            <button onclick="toggleLightbox('install-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="text-2xl font-bold mb-4">How to Install</h2>
-            <p id="install-instructions" class="mb-4"></p>
-            <p>Show instructions for:</p>
-            <div class="flex flex-wrap justify-center gap-2 mt-2">
-                <button onclick="showInstallInstructions('android')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Android</button>
-                <button onclick="showInstallInstructions('ios')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">iOS</button>
-                <button onclick="showInstallInstructions('mac')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Mac</button>
-                <button onclick="showInstallInstructions('windows')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Windows</button>
-                <button onclick="showInstallInstructions('other')" class="bg-pickle-green text-white px-3 py-1 rounded hover:bg-pickle-light">Other</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Solo Lightbox -->
-    <div id="solo-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('solo-lightbox', false)">
-        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
+    <div id="solo-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4" onclick="toggleLightbox('solo-lightbox', false)">
+        <div class="bg-white p-8 rounded-lg w-full max-w-5xl relative overflow-auto" style="max-height: 90vh;" onclick="event.stopPropagation()">
             <button onclick="toggleLightbox('solo-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <h2 class="text-2xl font-bold mb-4">Puzzles</h2>
-            <button onclick="location.href='/mondrian'" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded mb-4 hover:bg-pickle-light transition-colors">Mondrian Art</button>
-            <button disabled class="w-full bg-gray-300 text-gray-500 font-bold py-3 px-6 rounded cursor-not-allowed">Lazy Architect</button>
+            <h2 class="text-2xl font-bold mb-4 text-left">Puzzles</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
+                    <img src="icon-256x256.webp" alt="Mondrian Puzzle" class="w-full h-48 object-cover rounded mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Mondrian Puzzle</h3>
+                    <p class="mb-4 flex-grow">Solve puzzles inspired by the art of Piet Mondrian.</p>
+                    <button onclick="location.href='/mondrian'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+                </div>
+                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
+                    <img src="icon-256x256.webp" alt="Lazy Architect" class="w-full h-48 object-cover rounded mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Lazy Architect</h3>
+                    <p class="mb-4 flex-grow">Design structures with minimal effort and maximum creativity.</p>
+                    <button onclick="location.href='/lazy-architect'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+                </div>
+                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
+                    <img src="icon-256x256.webp" alt="Graph Coloring" class="w-full h-48 object-cover rounded mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Coloring Game</h3>
+                    <p class="mb-4 flex-grow">Add colors to intricate designs to create beautiful artwork.</p>
+                    <button onclick="location.href='/graph-coloring'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+                </div>
+                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
+                    <img src="icon-256x256.webp" alt="Support Us" class="w-full h-48 object-cover rounded mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Support Us</h3>
+                    <p class="mb-4 flex-grow">Help us continue to provide free puzzles and games.</p>
+                    <button onclick="location.href='/support'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Support Us</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -125,29 +124,6 @@
             }
         }
 
-        function showInstallInstructions(os) {
-            const instructions = document.getElementById('install-instructions');
-            switch (os) {
-                case 'android':
-                    instructions.innerHTML = "To install this app on your Android device, tap the menu button and select 'Add to Home screen'.";
-                    break;
-                case 'ios':
-                    instructions.innerHTML = "To install this app on your iOS device, tap the share button in Safari and select 'Add to Home Screen'.";
-                    break;
-                case 'mac':
-                    instructions.innerHTML = "To install this app on your Mac, open Safari, click the share button, and select 'Add to Home Screen'.";
-                    break;
-                case 'windows':
-                    instructions.innerHTML = "To install this app on your Windows device, open the browser menu and select 'Install'.";
-                    break;
-                default:
-                    instructions.innerHTML = "To install this app, open the browser menu and select 'Install' or 'Add to Home Screen'.";
-                    break;
-            }
-
-            toggleLightbox('install-lightbox', true);
-        }
-
         function toggleLightbox(id, show) {
             const lightbox = document.getElementById(id);
             if (show) {
@@ -156,14 +132,6 @@
                 lightbox.classList.add('hidden');
             }
         }
-
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            document.getElementById('install-banner').classList.add('hidden');
-        } else {
-            document.getElementById('install-banner').classList.remove('hidden');
-        }
-
-        document.getElementById('install-banner').addEventListener('click', () => toggleLightbox('install-lightbox', true));
     </script>
 </body>
 </html>
