@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -8,106 +8,160 @@
     <meta name="theme-color" content="#2e7d32">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="manifest" href="/manifest.json">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'pickle-green': '#2e7d32',
-                        'pickle-light': '#66bb6a',
-                    }
-                }
-            }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.green.min.css">
+    <style>
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            text-align: center;
+            background: linear-gradient(to right, #d4fc79, #96e6a1);
         }
-    </script>
+        main { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .grid { display: grid; gap: 1rem; }
+        @media (min-width: 576px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 992px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+        .card { background: white; padding: 1rem; border-radius: 0.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+        .app-icon { width: 128px; height: 128px; border-radius: 1rem; margin: 2rem auto; }
+        .button-container { max-width: 300px; margin: 2rem auto; }
+        .inline-link { font-size: 0.9em; margin-bottom: 1rem; display: inline-block; }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+        #solo-modal .modal-content {
+            margin: 5% auto;
+            width: 90%;
+            max-width: 1200px;
+            height: 80%;
+            overflow-y: auto;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body class="font-sans text-center bg-gradient-to-r from-[#d4fc79] to-[#96e6a1] text-gray-800 flex flex-col min-h-screen overflow-x-hidden select-none">
-    <div class="flex-grow flex flex-col items-center justify-center pt-16 px-4">
-        <img src="icon-256x256.webp" alt="App Icon" class="w-32 h-32 rounded-2xl mb-6">
-        <h1 class="text-4xl font-bold mb-2 text-pickle-green">The Infinite Pickle</h1>
-        <a href="#" class="text-sm text-gray-600 mb-6 hover:underline" onclick="toggleLightbox('about-lightbox', true)">About</a>
-        <div class="flex flex-col items-center w-full max-w-sm">
-            <button onclick="toggleLightbox('solo-lightbox', true)" class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded mb-4 hover:bg-pickle-light transition-colors">Solo</button>
-            <button disabled class="w-full bg-gray-300 text-gray-500 font-bold py-3 px-6 rounded cursor-not-allowed">Join room</button>
+<body>
+    <main class="container">
+        <img src="icon-256x256.webp" alt="App Icon" class="app-icon">
+        <h1>The Infinite Pickle</h1>
+        <a href="#" class="inline-link" onclick="openModal('about-modal')">About</a>
+        <div class="button-container">
+            <button onclick="openModal('solo-modal')">Solo</button>
+            <button disabled>Join room</button>
         </div>
-    </div>
+    </main>
 
-    <footer class="w-full text-center py-4 text-sm text-gray-600">
-        <a href="https://mathpickle.com/" target="_blank" rel="noopener" class="hover:underline">Math Pickle</a> and 
-        <a href="https://didactic.ai/" target="_blank" rel="noopener" class="hover:underline">Didactic AI</a> © 2024
+    <footer class="container">
+        <small>
+            <a href="https://mathpickle.com/" target="_blank" rel="noopener">Math Pickle</a> and 
+            <a href="https://didactic.ai/" target="_blank" rel="noopener">Didactic AI</a> © 2024
+        </small>
     </footer>
 
-    <!-- Join Room Lightbox -->
-    <div id="join-room-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('join-room-lightbox', false)">
-        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
-            <button onclick="toggleLightbox('join-room-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="text-2xl font-bold mb-4">Enter 6-digit code</h2>
-            <input type="text" maxlength="6" placeholder="0 0 0 0 0 0" oninput="checkCodeLength(this)" aria-label="6-digit code" class="w-full text-center text-2xl p-2 mb-4 border rounded">
-            <a href="#" class="text-pickle-green text-lg hover:underline">Create room</a>
-        </div>
-    </div>
-
-    <!-- Solo Lightbox -->
-    <div id="solo-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4" onclick="toggleLightbox('solo-lightbox', false)">
-        <div class="bg-white p-8 rounded-lg w-full max-w-5xl relative overflow-auto" style="max-height: 90vh;" onclick="event.stopPropagation()">
-            <button onclick="toggleLightbox('solo-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="text-2xl font-bold mb-4 text-left">Puzzles</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
-                    <img src="icon-256x256.webp" alt="Mondrian Puzzle" class="w-full h-48 object-cover rounded mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Mondrian Puzzle</h3>
-                    <p class="mb-4 flex-grow">Solve puzzles inspired by the art of Piet Mondrian.</p>
-                    <button onclick="location.href='/mondrian'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+    <!-- Solo Modal -->
+    <div id="solo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Puzzles</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="icon-256x256.webp" alt="Mondrian Puzzle" style="max-width: 100%; height: 200px; object-fit: cover;">
+                    <h3>Mondrian Puzzle</h3>
+                    <p>Solve puzzles inspired by the art of Piet Mondrian.</p>
+                    <button onclick="location.href='/mondrian'">Play</button>
                 </div>
-                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
-                    <img src="icon-256x256.webp" alt="Lazy Architect" class="w-full h-48 object-cover rounded mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Lazy Architect</h3>
-                    <p class="mb-4 flex-grow">Design structures with minimal effort and maximum creativity.</p>
-                    <button onclick="location.href='/lazy-architect'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+                <div class="card">
+                    <img src="icon-256x256.webp" alt="Lazy Architect" style="max-width: 100%; height: 200px; object-fit: cover;">
+                    <h3>Lazy Architect</h3>
+                    <p>Design structures with minimal effort and maximum creativity.</p>
+                    <button onclick="location.href='/lazy-architect'">Play</button>
                 </div>
-                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
-                    <img src="icon-256x256.webp" alt="Graph Coloring" class="w-full h-48 object-cover rounded mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Coloring Game</h3>
-                    <p class="mb-4 flex-grow">Add colors to intricate designs to create beautiful artwork.</p>
-                    <button onclick="location.href='/graph-coloring'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Play</button>
+                <div class="card">
+                    <img src="icon-256x256.webp" alt="Graph Coloring" style="max-width: 100%; height: 200px; object-fit: cover;">
+                    <h3>Coloring Game</h3>
+                    <p>Add colors to intricate designs to create beautiful artwork.</p>
+                    <button onclick="location.href='/graph-coloring'">Play</button>
                 </div>
-                <div class="flex flex-col bg-white border rounded-lg shadow p-4 text-left">
-                    <img src="icon-256x256.webp" alt="Support Us" class="w-full h-48 object-cover rounded mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Support Us</h3>
-                    <p class="mb-4 flex-grow">Help us continue to provide free puzzles and games.</p>
-                    <button onclick="location.href='/support'" class="w-full bg-pickle-green text-white font-bold py-2 px-4 rounded hover:bg-pickle-light transition-colors">Support Us</button>
+                <div class="card">
+                    <img src="icon-256x256.webp" alt="Support Us" style="max-width: 100%; height: 200px; object-fit: cover;">
+                    <h3>Support Us</h3>
+                    <p>Help us continue to provide free puzzles and games.</p>
+                    <button onclick="location.href='/support'">Support Us</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- About Lightbox -->
-    <div id="about-lightbox" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" onclick="toggleLightbox('about-lightbox', false)">
-        <div class="bg-white p-8 rounded-lg w-full max-w-md relative" onclick="event.stopPropagation()">
-            <button onclick="toggleLightbox('about-lightbox', false)" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <h2 class="text-2xl font-bold mb-4">About The Infinite Pickle</h2>
-            <p class="mb-4">A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" rel="noopener" class="text-pickle-green hover:underline">Kickstarter</a>.</p>
-            <div class="subscribe">
-                <input type="email" placeholder="Enter your email" class="w-full p-2 mb-4 border rounded" aria-label="Email for subscription">
-                <button class="w-full bg-pickle-green text-white font-bold py-3 px-6 rounded hover:bg-pickle-light transition-colors">Subscribe for news and updates</button>
-            </div>
+    <!-- About Modal -->
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>About The Infinite Pickle</h2>
+            <p>A collection of mathematical puzzles free of charge, advertisements, product placements, addictive gamification, adherence to boring curricula, and other nonsense. Support us on <a href="https://www.kickstarter.com/" target="_blank" rel="noopener">Kickstarter</a>.</p>
+            <form>
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Subscribe for news and updates</button>
+            </form>
         </div>
     </div>
 
     <script>
+        // Get all modals
+        var modals = document.getElementsByClassName('modal');
+
+        // Get all close buttons
+        var closes = document.getElementsByClassName('close');
+
+        // When the user clicks on the button, open the modal
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        for (var i = 0; i < closes.length; i++) {
+            closes[i].onclick = function() {
+                this.parentElement.parentElement.style.display = "none";
+            }
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
+        }
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
@@ -116,21 +170,6 @@
                     console.log('ServiceWorker registration failed: ', error);
                 });
             });
-        }
-
-        function checkCodeLength(input) {
-            if (input.value.length === 6) {
-                alert('You entered ' + input.value);
-            }
-        }
-
-        function toggleLightbox(id, show) {
-            const lightbox = document.getElementById(id);
-            if (show) {
-                lightbox.classList.remove('hidden');
-            } else {
-                lightbox.classList.add('hidden');
-            }
         }
     </script>
 </body>

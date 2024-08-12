@@ -2,7 +2,7 @@
   "name": "The Infinite Pickle",
   "short_name": "Pickle",
   "description": "A collection of mathematical puzzles free of charge and micropayments, advertisements, product placements, addictive gamification, and other nonsense.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
